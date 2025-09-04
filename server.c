@@ -22,7 +22,9 @@ int serve(int p) {
     
     int opt = 1;
     setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
-    
+
+    memcpy(buf, 0, sizeof(buf));
+
     sv.sin_family = AF_INET;
     sv.sin_port = htons(p);
     sv.sin_addr.s_addr = INADDR_ANY;
@@ -37,6 +39,7 @@ int serve(int p) {
 
     while (ts) {
 
+        memcpy(buf, 0, sizeof(buf));
         cvz = sizeof (cv);
         c = accept(s, (struct sockaddr*) &cv, cvz);
         if (c < 0) error(acc_err);

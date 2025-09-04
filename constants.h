@@ -12,5 +12,6 @@ extern const char *lis_err = "listen error";
 extern const char *acc_err = "accept error";
 extern const char *read_err = "read error";
 extern const char *write_err = "write error";
+extern const char *connect_err = "connect error";
 
 #endif
