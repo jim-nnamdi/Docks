@@ -9,7 +9,6 @@
 
 #include "constants.h"
 
-void error(const char* msg);
 int serve(int p) {
     int s, c;
     size_t r, w;
@@ -50,4 +49,7 @@ int serve(int p) {
         w = recv(c, buf, strlen(buf), 0);
         if (w < 0) error(write_err);
     }
+
+    close(c);
+    close(s);
 }
