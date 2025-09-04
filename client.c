@@ -9,7 +9,6 @@
 
 #include "constants.h"
 
-void error(const char* msg);
 int client(int p, const char* svr) {
     int s, c;
     size_t r, w;
@@ -40,9 +39,4 @@ int client(int p, const char* svr) {
         w = recv(s, buf, strlen(buf), 0);
         if (w < 0) error(write_err);
     }
-}
-
-void error(const char *msg) {
-    perror(msg);
-    exit(1);
 }

@@ -9,7 +9,6 @@
 
 #include "constants.h"
 
-void error(const char* msg);
 int serve(int p) {
     int s, c;
     size_t r, w;
@@ -53,9 +52,4 @@ int serve(int p) {
 
     close(c);
     close(s);
-}
-
-void error(const char *msg) {
-    perror(msg);
-    exit(1);
 }

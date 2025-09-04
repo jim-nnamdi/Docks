@@ -16,4 +16,11 @@ extern const char *read_err = "read error";
 extern const char *write_err = "write error";
 extern const char *connect_err = "connect error";
 
+
+void error(const char* msg);
+void error(const char *msg) {
+    perror(msg);
+    exit(1);
+}
+
 #endif
