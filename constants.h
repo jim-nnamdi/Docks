@@ -6,6 +6,8 @@
 
 int ts = 1;
 int max_peers =  10;
+
+extern const char *svr_err = "no such server";
 extern const char *socket_err = "socket error";
 extern const char *bind_err = "bind error";
 extern const char *lis_err = "listen error";
