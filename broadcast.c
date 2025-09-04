@@ -1,13 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <sys/event.h>
-#include <netinet/in.h>
-#include <netdb.h>
-#include <arpa/inet.h>
-#include "constants.h"
+#include "./includes/broadcast.h"
 
 int broadcast(int p) {
     int s;
@@ -21,7 +12,7 @@ int broadcast(int p) {
 
     int bcast = 1;
     setsockopt(s, SOL_SOCKET, SO_BROADCAST, &bcast, sizeof(bcast));
-    
+
     sv.sin_family = AF_INET;
     sv.sin_port = htons(p);
     sv.sin_addr.s_addr = inet_addr(BCAST_PUB_ADDR);
