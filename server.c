@@ -50,4 +50,12 @@ int serve(int p) {
         w = recv(c, buf, strlen(buf), 0);
         if (w < 0) error(write_err);
     }
+
+    close(c);
+    close(s);
+}
+
+void error(const char *msg) {
+    perror(msg);
+    exit(1);
 }
