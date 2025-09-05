@@ -43,4 +43,5 @@ int serve(int p) {
 
     close(c);
     close(s);
+    return (0);
 }

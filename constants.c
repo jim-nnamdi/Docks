@@ -9,9 +9,19 @@ const char *read_err = "read error";
 const char *write_err = "write error";
 const char *connect_err = "connect error";
 const char *recv_err = "receive_from error";
-const char *connect_err = "sendto error";
+const char *sendto_err = "sendto error";
 
 const char *bcast_sock_err = "broadcast socket error";
 const char *bcast_sendto_error = "broadcast send to error";
 const char *BCAST_PUB_ADDR = "255.255.255.255";
 const char *broadcast_single_peer = "looking for peers";
+
+
+void docks_df(const char*msg) {
+    printf("%s \n", msg);
+}
+
+void error(const char *msg) {
+    perror(msg);
+    exit(1);
+}
