@@ -25,22 +25,20 @@ int serve(int p) {
     int l = listen(s, max_peers);
     if (l < 0) error(lis_err);
 
+    cvz = sizeof (cv);
+    c = accept(s, (struct sockaddr*) &cv, &cvz);
+    if (c < 0) error(acc_err);
+
     while (ts) {
-
         memset(buf, 0, sizeof(buf));
-        cvz = sizeof (cv);
-        c = accept(s, (struct sockaddr*) &cv, &cvz);
-        if (c < 0) error(acc_err);
-
-        w = recv(c, buf, sizeof(buf) - 1, 0);
+        w = read(c, buf, sizeof(buf) - 1);
         if (w < 0) error(write_err);
         buf[w] = 0;
         printf("client:%s \n", buf);
 
-        r = send(c, buf, w, 0);
+        fgets(buf, sizeof(buf), stdin);
+        r = write(c, buf, w);
         if (r < 0) error(read_err);
-
-        close(c);
     }
 
     close(s);
