@@ -1,4 +1,5 @@
 #include "constants.h"
+#include <stdlib.h>
 
 const char *svr_err = "no such server";
 const char *socket_err = "socket error";
