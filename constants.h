@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 
-int ts = 1;
-int max_peers =  10;
+extern int ts;
+extern int max_peers;
 
 extern const char *svr_err;
 extern const char *socket_err;

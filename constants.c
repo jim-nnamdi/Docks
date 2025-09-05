@@ -1,6 +1,9 @@
 #include "constants.h"
 #include <stdlib.h>
 
+int ts = 1;
+int max_peers =  10;
+
 const char *svr_err = "no such server";
 const char *socket_err = "socket error";
 const char *bind_err = "bind error";
