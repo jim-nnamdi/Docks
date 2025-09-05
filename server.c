@@ -34,6 +34,8 @@ int serve(int p) {
 
         w = recv(c, buf, sizeof(buf) - 1, 0);
         if (w < 0) error(write_err);
+        buf[w] = 0;
+        printf("client:%s \n", buf);
 
         r = send(c, buf, w, 0);
         if (r < 0) error(read_err);
