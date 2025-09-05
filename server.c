@@ -45,3 +45,9 @@ int serve(int p) {
     close(s);
     return (0);
 }
+
+int main(int argc, char **argv) {
+    char *p = argv[1];
+    int s = serve(atoi(p));
+    return s;
+}
