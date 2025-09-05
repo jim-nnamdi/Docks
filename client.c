@@ -1,13 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <netdb.h>
-#include <sys/socket.h>
-#include <sys/event.h>
-#include <netinet/in.h>
-
-#include "constants.h"
+#include "./includes/client.h"
 
 int client(int p, const char* svr) {
     int s, c;

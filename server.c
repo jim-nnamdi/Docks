@@ -1,13 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <netdb.h>
-#include <sys/socket.h>
-#include <sys/event.h>
-#include <netinet/in.h>
-
-#include "constants.h"
+#include "./includes/server.h"
 
 int serve(int p) {
     int s, c;
