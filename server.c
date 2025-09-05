@@ -13,12 +13,10 @@ int serve(int p) {
     int opt = 1;
     setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 
-    memcpy(buf, 0, sizeof(buf));
-
+    memset(&sv, 0, sizeof(sv));
     sv.sin_family = AF_INET;
     sv.sin_port = htons(p);
     sv.sin_addr.s_addr = INADDR_ANY;
-    sv.sin_len = sizeof sv;
 
     svz = sizeof (sv);
     int b = bind(s, (struct sockaddr*) &sv, svz);
@@ -29,18 +27,30 @@ int serve(int p) {
 
     while (ts) {
 
-        memcpy(buf, 0, sizeof(buf));
+        memset(buf, 0, sizeof(buf));
         cvz = sizeof (cv);
-        c = accept(s, (struct sockaddr*) &cv, cvz);
+        c = accept(s, (struct sockaddr*) &cv, &cvz);
         if (c < 0) error(acc_err);
 
-        r = send(c, buf, sizeof(buf), 0);
+        w = recv(c, buf, sizeof(buf) - 1, 0);
+        if (w < 0) error(write_err);
+
+        r = send(c, buf, w, 0);
         if (r < 0) error(read_err);
 
-        w = recv(c, buf, strlen(buf), 0);
-        if (w < 0) error(write_err);
+        close(c);
     }
 
-    close(c);
     close(s);
+    return (0);
+}
+
+int main(int argc, char **argv) {
+    if (argc < 2) {
+        fprintf(stderr, "usage : %s <port>", argv[0]);
+        return (1);
+    }
+    char *p = argv[1];
+    int s = serve(atoi(p));
+    return s;
 }

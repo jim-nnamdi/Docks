@@ -14,20 +14,38 @@ int client(int p, const char* svr) {
     sn = gethostbyname(svr);
     if (sn == NULL) error(svr_err);
 
+    memset(&sv, 0, sizeof(sv));
     sv.sin_family = AF_INET;
     sv.sin_port = htons(p);
-    sv.sin_addr.s_addr = INADDR_ANY;
-    sv.sin_len = sizeof(sv);
+    if(inet_pton(AF_INET, svr, &sv.sin_addr) <= 0)
+        error(invalid_server_address);
 
-    svz = sizeof (sv);
-    int c =  connect(s, (struct sockaddr*)&sv, svz);
+    svz = sizeof(sv);
+    c =  connect(s, (struct sockaddr*)&sv, svz);
     if (c < 0) error(connect_err);
+    printf("connected to %s:%d \n", svr, p);
 
-    while (ts) {
-        r = send(s, buf, sizeof(buf), 0);
+    while (fgets(buf, sizeof(buf), stdin) != NULL) {
+        r = send(c, buf, sizeof(buf), 0);
         if (r < 0) error(read_err);
 
-        w = recv(s, buf, strlen(buf), 0);
+        w = recv(c, buf, strlen(buf), 0);
         if (w < 0) error(write_err);
+        buf[w] = 0;
+        printf("server: %s \n", buf);
     }
+
+    close(s);
+    return (0);
+}
+
+int main(int argc, char **argv) {
+    if (argc < 3) {
+        fprintf(stderr, "usage: %s <server> <port>", argv[0]);
+        return (1);
+    }
+    char* s = argv[1];
+    char* p = argv[2];
+    int c = client(atoi(p), s);
+    return c;
 }
