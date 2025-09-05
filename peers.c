@@ -25,7 +25,7 @@ int listen_for_peers(int p) {
         rcv = recvfrom(s, buf, sizeof(buf) - 1, 0, (struct sockaddr*)&cv, cvz);
         if (rcv < 0) error(recv_err); 
         buf[rcv] = 0;
-        if (strncmp(buf, broadcast_single_peer, strlen(buf)) == 0)
+        if (strcmp(buf, broadcast_single_peer) == 0)
             dock_df(inet_ntoa(cv.sin_addr));
     }
 
