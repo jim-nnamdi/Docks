@@ -20,7 +20,7 @@ int client(int p, const char* svr) {
     sv.sin_len = sizeof(sv);
 
     svz = sizeof (sv);
-    int c =  connect(s, (struct sockaddr*)&sv, &svz);
+    c =  connect(s, (struct sockaddr*)&sv, svz);
     if (c < 0) error(connect_err);
 
     while (ts) {
@@ -34,4 +34,11 @@ int client(int p, const char* svr) {
     close(c);
     close(s);
     return (0);
+}
+
+int main(int argc, char **argv) {
+    char* s = argv[1];
+    char* p = argv[2];
+    int c = client(atoi(p), s);
+    return c;
 }
