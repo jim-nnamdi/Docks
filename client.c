@@ -37,7 +37,7 @@ int client(int p, const char* svr) {
 
 int main(int argc, char **argv) {
     if (argc < 3) {
-        fprintf(stderr, "usage: %s <server> <port>", argv[1], argv[2]);
+        fprintf(stderr, "usage: %s <server> <port>", argv[0]);
         return (1);
     }
     char* s = argv[1];
