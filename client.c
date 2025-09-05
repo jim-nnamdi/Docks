@@ -17,7 +17,6 @@ int client(int p, const char* svr) {
     sv.sin_family = AF_INET;
     sv.sin_port = htons(p);
     sv.sin_addr.s_addr = INADDR_ANY;
-    sv.sin_len = sizeof(sv);
 
     svz = sizeof (sv);
     c =  connect(s, (struct sockaddr*)&sv, svz);
@@ -29,14 +28,18 @@ int client(int p, const char* svr) {
 
         w = recv(c, buf, strlen(buf), 0);
         if (w < 0) error(write_err);
+        close(c);
     }
 
-    close(c);
     close(s);
     return (0);
 }
 
 int main(int argc, char **argv) {
+    if (argc < 3) {
+        fprintf(stderr, "usage: %s <server> <port>", argv[1], argv[2]);
+        return (1);
+    }
     char* s = argv[1];
     char* p = argv[2];
     int c = client(atoi(p), s);
