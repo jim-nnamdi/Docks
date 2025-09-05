@@ -20,6 +20,8 @@ const char *bcast_sendto_error = "broadcast send to error";
 const char *BCAST_PUB_ADDR = "255.255.255.255";
 const char *broadcast_single_peer = "looking for peers";
 
+const char *invalid_server_address = "invalid server address for client";
+
 
 void docks_df(const char*msg) {
     printf("%s \n", msg);

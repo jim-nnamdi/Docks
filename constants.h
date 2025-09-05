@@ -23,6 +23,8 @@ extern const char *bcast_sendto_error;
 extern const char *BCAST_PUB_ADDR;
 extern const char *broadcast_single_peer;
 
+extern const char *invalid_server_address;
+
 extern void error(const char* msg);
 extern void docks_df(const char* msg);
 
