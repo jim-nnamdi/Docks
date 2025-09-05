@@ -5,14 +5,10 @@ int client(int p, const char* svr) {
     size_t r, w;
     struct sockaddr_in sv;
     socklen_t svz;
-    struct hostent* sn;
     char buf[BUFSIZ];
 
     s =  socket(AF_INET, SOCK_STREAM, 0);
     if (s < 0) error(socket_err);
-
-    sn = gethostbyname(svr);
-    if (sn == NULL) error(svr_err);
 
     memset(&sv, 0, sizeof(sv));
     sv.sin_family = AF_INET;
@@ -25,11 +21,12 @@ int client(int p, const char* svr) {
     if (c < 0) error(connect_err);
     printf("connected to %s:%d \n", svr, p);
 
-    while (fgets(buf, sizeof(buf), stdin) != NULL) {
-        r = send(c, buf, sizeof(buf), 0);
+    while (ts) {
+        fgets(buf, sizeof(buf), stdin);
+        r = write(c, buf, strlen(buf));
         if (r < 0) error(read_err);
 
-        w = recv(c, buf, strlen(buf), 0);
+        w = read(c, buf, sizeof(buf) - 1);
         if (w < 0) error(write_err);
         buf[w] = 0;
         printf("server: %s \n", buf);
