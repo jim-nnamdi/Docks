@@ -31,7 +31,7 @@ int serve(int p) {
 
         memcpy(buf, 0, sizeof(buf));
         cvz = sizeof (cv);
-        c = accept(s, (struct sockaddr*) &cv, cvz);
+        c = accept(s, (struct sockaddr*) &cv, &cvz);
         if (c < 0) error(acc_err);
 
         r = send(c, buf, sizeof(buf), 0);
