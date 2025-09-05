@@ -17,7 +17,8 @@ int client(int p, const char* svr) {
     memset(&sv, 0, sizeof(sv));
     sv.sin_family = AF_INET;
     sv.sin_port = htons(p);
-    memcpy(&sv, sn->h_addr_list[0], sn->h_length);
+    if(inet_pton(AF_INET, svr, &sv.sin_addr) <= 0)
+        error(invalid_server_address);
 
     svz = sizeof(sv);
     c =  connect(s, (struct sockaddr*)&sv, svz);
