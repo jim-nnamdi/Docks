@@ -20,14 +20,18 @@ int client(int p, const char* svr) {
     sv.sin_len = sizeof(sv);
 
     svz = sizeof (sv);
-    int c =  connect(s, (struct sockaddr*)&sv, svz);
+    int c =  connect(s, (struct sockaddr*)&sv, &svz);
     if (c < 0) error(connect_err);
 
     while (ts) {
-        r = send(s, buf, sizeof(buf), 0);
+        r = send(c, buf, sizeof(buf), 0);
         if (r < 0) error(read_err);
 
-        w = recv(s, buf, strlen(buf), 0);
+        w = recv(c, buf, strlen(buf), 0);
         if (w < 0) error(write_err);
     }
+
+    close(c);
+    close(s);
+    return (0);
 }
