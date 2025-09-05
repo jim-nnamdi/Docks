@@ -14,21 +14,24 @@ int client(int p, const char* svr) {
     sn = gethostbyname(svr);
     if (sn == NULL) error(svr_err);
 
+    memset(&sv, 0, sizeof(sv));
     sv.sin_family = AF_INET;
     sv.sin_port = htons(p);
-    sv.sin_addr.s_addr = INADDR_ANY;
+    memcpy(&sv, sn->h_addr_list[0], sn->h_length);
 
-    svz = sizeof (sv);
+    svz = sizeof(sv);
     c =  connect(s, (struct sockaddr*)&sv, svz);
     if (c < 0) error(connect_err);
+    printf("connected to %s:%d \n", svr, p);
 
-    while (ts) {
+    while (fgets(buf, sizeof(buf), stdin) != NULL) {
         r = send(c, buf, sizeof(buf), 0);
         if (r < 0) error(read_err);
 
         w = recv(c, buf, strlen(buf), 0);
         if (w < 0) error(write_err);
-        close(c);
+        buf[w] = 0;
+        printf("server: %s \n", buf);
     }
 
     close(s);
