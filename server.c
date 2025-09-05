@@ -37,7 +37,7 @@ int serve(int p) {
         printf("client:%s \n", buf);
 
         fgets(buf, sizeof(buf), stdin);
-        r = write(c, buf, w);
+        r = write(c, buf, strlen(buf));
         if (r < 0) error(write_err);
     }
 

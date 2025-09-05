@@ -7,7 +7,7 @@ int client(int p, const char* svr) {
     socklen_t svz;
     char buf[BUFSIZ];
 
-    s =  socket(AF_INET, SOCK_STREAM, 0);
+    s = socket(AF_INET, SOCK_STREAM, 0);
     if (s < 0) error(socket_err);
 
     memset(&sv, 0, sizeof(sv));
@@ -22,12 +22,13 @@ int client(int p, const char* svr) {
     printf("connected to %s:%d \n", svr, p);
 
     while (ts) {
+        memset(buf, 0, sizeof(buf));
         fgets(buf, sizeof(buf), stdin);
-        r = write(c, buf, strlen(buf));
-        if (r < 0) error(read_err);
+        r = write(s, buf, strlen(buf));
+        if (r < 0) error(write_err);
 
-        w = read(c, buf, sizeof(buf) - 1);
-        if (w < 0) error(write_err);
+        w = read(s, buf, sizeof(buf) - 1);
+        if (w < 0) error(read_err);
         buf[w] = 0;
         printf("server: %s \n", buf);
     }
