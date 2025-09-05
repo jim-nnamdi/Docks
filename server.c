@@ -32,15 +32,16 @@ int serve(int p) {
     while (ts) {
         memset(buf, 0, sizeof(buf));
         w = read(c, buf, sizeof(buf) - 1);
-        if (w < 0) error(write_err);
+        if (w < 0) error(read_err);
         buf[w] = 0;
         printf("client:%s \n", buf);
 
         fgets(buf, sizeof(buf), stdin);
         r = write(c, buf, w);
-        if (r < 0) error(read_err);
+        if (r < 0) error(write_err);
     }
 
+    close(c);
     close(s);
     return (0);
 }
